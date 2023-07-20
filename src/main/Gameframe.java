@@ -28,10 +28,10 @@ public class Gameframe {
 		hy=-1;
 		playerTurn=1;
 		turnCount=0;
-		turnMax=24;
+		turnMax=30+2; //2 for goals
 		
 		//ai
-		ai=new Ai(3);
+		ai=new Ai(4);
 		computer=false;
 	}
 	
@@ -89,7 +89,7 @@ public class Gameframe {
 		if(playerTurn>2) {
 			playerTurn=1;
 		}
-		if(computer && playerTurn==2){
+		if(computer && playerTurn==2 && turnCount!=turnMax){
 			board=ai.Move(board, 2, turnCount, turnMax);
 			playerTurn=1;
 			turnCount++;

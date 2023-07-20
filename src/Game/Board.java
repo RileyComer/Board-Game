@@ -131,25 +131,45 @@ public class Board {
 	}
 	
 	public void play() {
-		tik++;
-		if(tik==tikMax) {
-			tik=0;
-			ballX=Math.round(ballX);
-			ballY=Math.round(ballY);
-			if(pieces[(int) ballX][(int) ballY]!=0) {
-				ballDirection=pieces[(int) ballX][(int) ballY];
-				pieces[(int) ballX][(int) ballY]=0;
-				ballTouched=area[(int) ballX][(int) ballY];
-			}
-		}else {
-			if(ballDirection==4) {
-				ballY+=(1.0/tikMax);
-			}else if(ballDirection==3) {
-				ballX-=(1.0/tikMax);
-			}else if(ballDirection==2) {
-				ballY-=(1.0/tikMax);
-			}else if(ballDirection==1) {
-				ballX+=(1.0/tikMax);
+		if(ballDirection!=5) {
+			tik++;
+			if(tik==tikMax) {
+				tik=0;
+				ballX=Math.round(ballX);
+				ballY=Math.round(ballY);
+				if((ballY<pieces[0].length&&ballX<pieces.length) && (ballY>=0&&ballX>=0)) {
+					if(pieces[(int) ballX][(int) ballY]!=0) {
+						ballDirection=pieces[(int) ballX][(int) ballY];
+						pieces[(int) ballX][(int) ballY]=0;
+						ballTouched=area[(int) ballX][(int) ballY];
+						if(ballDirection==5) {
+							System.out.println("Goal Scored!");
+							if(ballTouched==1) {
+								System.out.println("Black Wins!");
+							}else {
+								System.out.println("White Wins!");
+							}
+						}
+					}
+				}else {
+					System.out.println("Tile out of bounds!");
+					ballDirection=5;
+					if(ballTouched==1) {
+						System.out.println("Black Wins!");
+					}else {
+						System.out.println("White Wins!");
+					}
+				}
+			}else {
+				if(ballDirection==4) {
+					ballY+=(1.0/tikMax);
+				}else if(ballDirection==3) {
+					ballX-=(1.0/tikMax);
+				}else if(ballDirection==2) {
+					ballY-=(1.0/tikMax);
+				}else if(ballDirection==1) {
+					ballX+=(1.0/tikMax);
+				}
 			}
 		}
 	}
